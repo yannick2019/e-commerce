@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using YanikoRestaurant.Data;
 using YanikoRestaurant.Models;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 

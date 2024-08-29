@@ -34,22 +34,25 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "text-primary" : "text-dark")"
+                                asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Products"
-                                asp-action="Index">Menu</a>
+                            <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Products" && ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "text-primary" : "text-dark")"
+                                asp-area="" asp-controller="Products" asp-action="Index">Menu</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Ingredients"
-                                asp-action="Index">Ingredients</a>
+                            <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Ingredients" && ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "text-primary" : "text-dark")"
+                                asp-area="" asp-controller="Ingredients" asp-action="Index">Ingredients</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="Create">Create
+                            <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Orders" && ViewContext.RouteData.Values["action"]?.ToString() == "Create" ? "text-primary" : "text-dark")"
+                                asp-area="" asp-controller="Orders" asp-action="Create">Create
                                 Order</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Orders" asp-action="ViewOrders">
+                            <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Orders" && ViewContext.RouteData.Values["action"]?.ToString() == "ViewOrders" ? "text-primary" : "text-dark")"
+                                asp-area="" asp-controller="Orders" asp-action="ViewOrders">
                                 Orders <span
                                     class="position-absolute start-40 translate-middle badge bg-success">@orderCount</span>
                             </a>

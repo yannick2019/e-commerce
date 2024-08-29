@@ -8,6 +8,7 @@ using YanikoRestaurant.Repository;
 
 namespace YanikoRestaurant.Controllers
 {
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -23,7 +24,6 @@ namespace YanikoRestaurant.Controllers
             _orders = new Repository<Order>(context);
         }
 
-        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -41,7 +41,6 @@ namespace YanikoRestaurant.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> AddItem(int prodId, int prodQty)
         {
             var product = await _context.Products.FindAsync(prodId);
@@ -87,7 +86,6 @@ namespace YanikoRestaurant.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> Cart()
         {
 
@@ -103,7 +101,6 @@ namespace YanikoRestaurant.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> PlaceOrder()
         {
             var model = HttpContext.Session.Get<OrderViewModel>("OrderViewModel");
@@ -142,7 +139,6 @@ namespace YanikoRestaurant.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> ViewOrders()
         {
             var userId = _userManager.GetUserId(User);
@@ -156,7 +152,6 @@ namespace YanikoRestaurant.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> DeleteOrder(int orderId)
         {
             var userId = _userManager.GetUserId(User);
