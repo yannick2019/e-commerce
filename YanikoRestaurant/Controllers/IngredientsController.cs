@@ -7,23 +7,23 @@ namespace YanikoRestaurant.Controllers
 {
     public class IngredientsController : Controller
     {
-        private readonly Repository<Ingredient> repo;
+        private readonly Repository<Ingredient> _ingredients;
 
         public IngredientsController(ApplicationDbContext context)
         {
-            repo = new Repository<Ingredient>(context);
+            _ingredients = new Repository<Ingredient>(context);
         }
 
         public async Task<IActionResult> Index()
         {
-            var ingredients = await repo.GetAllAsync();
+            var ingredients = await _ingredients.GetAllAsync();
 
             return View(ingredients);
         }
 
         public async Task<IActionResult> Details(int id)
         {
-            var ingredient = await repo.GetByIdAsync(id, new QueryOptions<Ingredient>() { Includes = "ProductIngredients.Product" });
+            var ingredient = await _ingredients.GetByIdAsync(id, new QueryOptions<Ingredient>() { Includes = "ProductIngredients.Product" });
 
             if (ingredient == null)
             {
@@ -46,7 +46,7 @@ namespace YanikoRestaurant.Controllers
         {
             if (ModelState.IsValid)
             {
-                await repo.AddAsync(ingredient);
+                await _ingredients.AddAsync(ingredient);
 
                 return RedirectToAction("Index");
             }
@@ -59,7 +59,7 @@ namespace YanikoRestaurant.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
-            return View(await repo.GetByIdAsync(id, new QueryOptions<Ingredient> { Includes = "ProductIngredients.Product" }));
+            return View(await _ingredients.GetByIdAsync(id, new QueryOptions<Ingredient> { Includes = "ProductIngredients.Product" }));
         }
 
         [HttpPost]
@@ -68,7 +68,7 @@ namespace YanikoRestaurant.Controllers
         {
             if (ModelState.IsValid)
             {
-                await repo.UpdateAsync(ingredient);
+                await _ingredients.UpdateAsync(ingredient);
 
                 return RedirectToAction("Index");
             }
@@ -81,14 +81,14 @@ namespace YanikoRestaurant.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            return View(await repo.GetByIdAsync(id, new QueryOptions<Ingredient> { Includes = "ProductIngredients.Product" }));
+            return View(await _ingredients.GetByIdAsync(id, new QueryOptions<Ingredient> { Includes = "ProductIngredients.Product" }));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(Ingredient ingredient)
         {
-            await repo.DeleteAsync(ingredient.IngredientId);
+            await _ingredients.DeleteAsync(ingredient.IngredientId);
 
             return RedirectToAction("Index");
         }

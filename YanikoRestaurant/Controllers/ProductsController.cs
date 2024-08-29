@@ -11,6 +11,7 @@ namespace YanikoRestaurant.Controllers
         private readonly Repository<Ingredient> _ingredients;
         private readonly Repository<Category> _categories;
         private readonly IWebHostEnvironment _webHostEnvironment;
+
         public ProductsController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
             _products = new Repository<Product>(context);

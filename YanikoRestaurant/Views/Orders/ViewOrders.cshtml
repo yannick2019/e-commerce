@@ -1,0 +1,46 @@
+@model IEnumerable<YanikoRestaurant.Models.Order>
+
+@{
+    ViewData["Title"] = "My Orders";
+}
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Order Date</th>
+            <th>Total Amount</th>
+            <th>Order Items</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.OrderId</td>
+                <td>@order.OrderDate.ToString("MM/dd/yyyy")</td>
+                <td>@order.TotalAmount.ToString("C")</td>
+                <td>
+                    <ul>
+                        @foreach (var item in order.OrderItems!)
+                        {
+                            <li>@item.Product?.Name - @item.Quantity x @item.Price.ToString("C")</li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    <form asp-action="DeleteOrder" asp-controller="Orders" method="post">
+                        <input type="hidden" name="orderId" value="@order.OrderId" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="5">
+                <button class="btn btn-primary">Purchase</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

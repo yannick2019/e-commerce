@@ -2,6 +2,11 @@ namespace YanikoRestaurant.Models
 {
     public class Order
     {
+        public Order()
+        {
+            OrderItems = new List<OrderItem>();
+        }
+
         public int OrderId { get; set; }
 
         public string? UserId { get; set; }
