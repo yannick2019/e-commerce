@@ -17,29 +17,41 @@
             <p class="text-muted mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                 incididunt ut labore et dolore magna aliqua.</p>
             <h3 class="mb-4">Total order : <span class="text-primary">@totalAmountOrder€</span></h3>
-            <div class="d-flex align-items-center mb-4">
+            <div class="d-flex align-items-center" style="margin-bottom: 50px;">
                 <a class="btn btn-primary rounded-pill px-4" asp-area="" asp-controller="Orders"
                     asp-action="Create">Create
                     Order</a>
             </div>
             <div class="d-flex">
-                <div class="food-item bg-success bg-opacity-10 me-3">
+                <div class="food-item bg-success bg-opacity-10 me-3 shadow">
                     <span>Burger</span>
-                    <div class="text-success">$3.25</div>
+                    <div class="food-item-category-img">
+                        <img src="~/images/burger.png" alt="a burger" width="52px" class="rounded-pill">
+                    </div>
                 </div>
-                <div class="food-item bg-danger bg-opacity-10 me-3">
-                    <span>Tacos</span>
-                    <div class="text-danger">$2.25</div>
+                <div class="food-item bg-danger bg-opacity-10 me-3 shadow">
+                    <span class="food-item-category-tacos">Tacos</span>
+                    <div class="food-item-category-img">
+                        <img src="~/images/burger.png" alt="a burger" width="52px" class="rounded-pill">
+                    </div>
                 </div>
-                <div class="food-item bg-warning bg-opacity-10">
+                <div class="food-item bg-warning bg-opacity-10 me-3 shadow">
                     <span>Donuts</span>
-                    <div class="text-warning">$3.25</div>
+                    <div class="food-item-category-img">
+                        <img src="~/images/burger.png" alt="a burger" width="52px" class="rounded-pill">
+                    </div>
+                </div>
+                <div class="food-item bg-success bg-opacity-10 shadow">
+                    <span class="food-item-category-pizza">Pizza</span>
+                    <div class="food-item-category-img">
+                        <img src="~/images/burger.png" alt="a burger" width="52px" class="rounded-pill">
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-md-6 position-relative">
-            <img src="~/images/hero-image.png" alt="Salad Bowl" class="img-fluid rounded">
-            <div class="bg-warning text-white p-2 rounded position-absolute" style="bottom: 20px; left: 20px;">
+            <img src="~/images/hero-image.png" alt="Donuts" class="img-fluid rounded">
+            <div class="bg-warning text-white p-2 rounded position-absolute" style="bottom: 16px; left: 186px;">
                 <span class="fw-bold">Donuts</span>
                 <div>
                     <i class="bi bi-star-fill"></i> 4.7
