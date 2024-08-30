@@ -4,21 +4,34 @@
     ViewBag.Title = "Create Order";
 }
 
-<h1>Create Order</h1>
+<h1 class="my-4">Create Order</h1>
 
 <div class="row">
     @foreach (Product product in @Model.Products!)
     {
-        <div class="col-md-4">
+        <div class="col-sm-6 col-md-4 col-lg-3 gap-2">
             <form asp-action="AddItem" method="post">
-                <div class="card" style="width: 18rem;">
-                    <img src="@Url.Content("~/images/" + product?.ImageUrl)" class="card-img-top fixed-image-height"
-                        alt="@product?.Description">
+                <div class="card mb-4" style="width: 16rem; height: 24rem;">
+                    <div>
+                        @{
+                            var imageUrl = product?.ImageUrl;
+                            if (!string.IsNullOrEmpty(imageUrl) && (imageUrl.StartsWith("http") ||
+                            imageUrl.StartsWith("https")))
+                            {
+                                // Do nothing, imageUrl is already valid
+                            }
+                            else
+                            {
+                                imageUrl = Url.Content("~/images/" + imageUrl);
+                            }
+                        }
+                        <img src="@imageUrl" class="card-img-top fixed-image-height" alt="@product?.Description">
+                    </div>
                     <div class="card-body">
                         @product?.Name - @product?.Price.ToString("C")
                         <input type="hidden" value="@product?.ProductId" name="prodId" />
                         <input type="number" name="prodQty" class="form-control" />
-                        <button class="btn btn-info" type="submit">Add</button>
+                        <button class="btn btn-info my-2" type="submit">Add</button>
                     </div>
                 </div>
             </form>

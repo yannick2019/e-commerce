@@ -8,18 +8,19 @@
 
 <a asp-action="Create">Create New Ingredient</a>
 
-<table class="table">
+
+<table class="table border mt-4">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.Name)</th>
-            <th></th>
+            <th style="width: 70%">@Html.DisplayNameFor(model => model.Name)</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         @foreach (Ingredient i in Model)
         {
             <tr>
-                <td>
+                <td style="width: 70%">
                     @Html.DisplayFor(modelItem => i.Name)
                 </td>
                 <td>

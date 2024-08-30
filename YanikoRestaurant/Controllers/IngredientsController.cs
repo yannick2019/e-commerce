@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using YanikoRestaurant.Data;
 using YanikoRestaurant.Models;
@@ -5,6 +6,7 @@ using YanikoRestaurant.Repository;
 
 namespace YanikoRestaurant.Controllers
 {
+    [Authorize]
     public class IngredientsController : Controller
     {
         private readonly Repository<Ingredient> _ingredients;

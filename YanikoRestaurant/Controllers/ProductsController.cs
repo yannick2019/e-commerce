@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using YanikoRestaurant.Data;
 using YanikoRestaurant.Models;
@@ -28,6 +29,7 @@ namespace YanikoRestaurant.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public async Task<IActionResult> AddEdit(int id)
         {
             ViewBag.Ingredients = await _ingredients.GetAllAsync();
@@ -51,6 +53,7 @@ namespace YanikoRestaurant.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> AddEdit(Product product, int[] ingredientIds, int catId)
         {
             ViewBag.Ingredients = await _ingredients.GetAllAsync();
@@ -125,6 +128,7 @@ namespace YanikoRestaurant.Controllers
             return RedirectToAction("Index", "Products");
         }
 
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Delete(int id)
         {
