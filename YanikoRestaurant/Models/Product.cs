@@ -28,7 +28,7 @@ namespace YanikoRestaurant.Models
         [NotMapped]
         public IFormFile? ImageFile { get; set; }
 
-        public string ImageUrl { get; set; } = "https://via.placeholder.com/150";
+        public string? ImageUrl { get; set; }
 
         [ValidateNever]
         public ICollection<OrderItem>? OrderItems { get; set; } // A product can be in many order items

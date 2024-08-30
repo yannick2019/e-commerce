@@ -30,9 +30,11 @@
                 <div class="card mb-4" style="width: 18rem;">
                     @{
                         var imageUrl = prod?.ImageUrl;
-                        if (!string.IsNullOrEmpty(imageUrl) && (imageUrl.StartsWith("http") || imageUrl.StartsWith("https")))
+                        var placeholderImageUrl = Url.Content("/image-placeholder.jpg");
+
+                        if (string.IsNullOrEmpty(imageUrl))
                         {
-                            // Do nothing, imageUrl is already valid
+                            imageUrl = placeholderImageUrl;
                         }
                         else
                         {

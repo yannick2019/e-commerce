@@ -11,14 +11,15 @@
     {
         <div class="col-sm-6 col-md-4 col-lg-3 gap-2">
             <form asp-action="AddItem" method="post">
-                <div class="card mb-4" style="width: 16rem; height: 24rem;">
+                <div class="card mb-4" style="width: 16rem; height: 20rem;">
                     <div>
                         @{
                             var imageUrl = product?.ImageUrl;
-                            if (!string.IsNullOrEmpty(imageUrl) && (imageUrl.StartsWith("http") ||
-                            imageUrl.StartsWith("https")))
+                            var placeholderImageUrl = Url.Content("/image-placeholder.jpg");
+
+                            if (string.IsNullOrEmpty(imageUrl))
                             {
-                                // Do nothing, imageUrl is already valid
+                                imageUrl = placeholderImageUrl;
                             }
                             else
                             {
@@ -30,8 +31,8 @@
                     <div class="card-body">
                         @product?.Name - @product?.Price.ToString("C")
                         <input type="hidden" value="@product?.ProductId" name="prodId" />
-                        <input type="number" name="prodQty" class="form-control" />
-                        <button class="btn btn-info my-2" type="submit">Add</button>
+                        <input type="number" name="prodQty" class="form-control my-2" placeholder="Quantity" required />
+                        <button class="btn btn-info" type="submit">Add</button>
                     </div>
                 </div>
             </form>
