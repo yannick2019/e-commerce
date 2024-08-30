@@ -23,6 +23,8 @@ html {
 
 body {
     margin-bottom: 60px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    padding-top: 76px;
 }
 
 .food-item {
@@ -39,4 +41,11 @@ body {
 }
 .food-item-category-tacos {
     margin-left: 3px;
+}
+
+.view-all-btn {
+    transition: background-color 0.3s ease-in-out;
+}
+.view-all-btn:hover {
+    background-color: #0056b3;
 }
