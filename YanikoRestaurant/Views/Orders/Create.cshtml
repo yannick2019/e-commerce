@@ -29,7 +29,7 @@
                         <img src="@imageUrl" class="card-img-top fixed-image-height" alt="@product?.Description">
                     </div>
                     <div class="card-body">
-                        @product?.Name - @product?.Price.ToString("C")
+                        @product?.Name - @product?.Price.ToString("C", new System.Globalization.CultureInfo("fr-FR"))
                         <input type="hidden" value="@product?.ProductId" name="prodId" />
                         <input type="number" name="prodQty" class="form-control my-2" placeholder="Quantity" required />
                         <button class="btn btn-info" type="submit">Add</button>

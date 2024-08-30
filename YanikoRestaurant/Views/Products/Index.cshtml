@@ -45,7 +45,7 @@
                     <div class="card-body">
                         <h5 class="card-title">@prod?.Name</h5>
                         <p class="card-text">@prod?.Description</p>
-                        <p class="card-text">@prod?.Price.ToString("C")</p>
+                        <p class="card-text">@prod?.Price.ToString("C", new System.Globalization.CultureInfo("fr-FR"))</p>
                         <p class="card-text">Quantity In Stock: @prod?.Stock</p>
 
                         <a class="btn btn-info" asp-controller="Products" asp-action="AddEdit"
