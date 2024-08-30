@@ -1,8 +1,53 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+@using YanikoRestaurant.Data
+@inject UserManager<ApplicationUser> UserManager
+@inject ApplicationDbContext DbContext
+
+@{
     ViewData["Title"] = "Home Page";
+
+    var userId = UserManager.GetUserId(User);
+    var totalAmountOrder = DbContext.Orders.Where(o => o.UserId == userId).Select(o => (double)o.TotalAmount).Sum();
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <h1 class="display-4 fw-bold mb-4">Order your<br>favourite Foods</h1>
+            <p class="text-muted mb-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua.</p>
+            <h3 class="mb-4">Total order : <span class="text-primary">@totalAmountOrder€</span></h3>
+            <div class="d-flex align-items-center mb-4">
+                <a class="btn btn-primary rounded-pill px-4" asp-area="" asp-controller="Orders"
+                    asp-action="Create">Create
+                    Order</a>
+            </div>
+            <div class="d-flex">
+                <div class="food-item bg-success bg-opacity-10 me-3">
+                    <span>Burger</span>
+                    <div class="text-success">$3.25</div>
+                </div>
+                <div class="food-item bg-danger bg-opacity-10 me-3">
+                    <span>Tacos</span>
+                    <div class="text-danger">$2.25</div>
+                </div>
+                <div class="food-item bg-warning bg-opacity-10">
+                    <span>Donuts</span>
+                    <div class="text-warning">$3.25</div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 position-relative">
+            <img src="~/images/hero-image.png" alt="Salad Bowl" class="img-fluid rounded">
+            <div class="bg-warning text-white p-2 rounded position-absolute" style="bottom: 20px; left: 20px;">
+                <span class="fw-bold">Donuts</span>
+                <div>
+                    <i class="bi bi-star-fill"></i> 4.7
+                </div>
+                <div>
+                    <i class="bi bi-clock"></i> 10-18 mins
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
