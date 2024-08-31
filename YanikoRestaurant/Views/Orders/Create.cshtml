@@ -6,6 +6,32 @@
 
 <h1 class="my-4">Create Order</h1>
 
+<!-- Filter Form -->
+<form method="get" asp-controller="Orders" asp-action="Create" class="mb-4">
+    <div class="row">
+        <div class="col-md-4 mb-2">
+            <input type="text" name="name" class="form-control" placeholder="Search by name"
+                value="@ViewData["name"]" />
+        </div>
+        <div class="col-md-4 mb-2">
+            <select name="category" class="form-control">
+                <option value="" selected="@(string.IsNullOrEmpty(ViewData["category"]?.ToString()))">All Categories
+                </option>
+                @foreach (var category in ViewBag.Categories)
+                {
+                    <option value="@category.CategoryId"
+                        selected="@(category.CategoryId.ToString() == ViewData["category"]?.ToString())">
+                        @category.Name
+                    </option>
+                }
+            </select>
+        </div>
+        <div class="col-md-4">
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+    </div>
+</form>
+
 <div class="row">
     @foreach (Product product in @Model.Products!)
     {
@@ -32,7 +58,7 @@
                         @product?.Name - @product?.Price.ToString("C", new System.Globalization.CultureInfo("fr-FR"))
                         <input type="hidden" value="@product?.ProductId" name="prodId" />
                         <input type="number" name="prodQty" class="form-control my-2" placeholder="Quantity" required />
-                        <button class="btn btn-info" type="submit">Add</button>
+                        <button class="btn btn-info" type="submit">Add <i class="bi bi-cart2 mr-2"></i></button>
                     </div>
                 </div>
             </form>

@@ -21,6 +21,34 @@
 
 <a asp-action="AddEdit" asp-controller="Products" class="btn btn-primary mb-4">Create New Item</a>
 
+<form method="get" asp-controller="Products" asp-action="Index" class="mb-4">
+    <div class="row">
+        <div class="col-md-3 mb-2">
+            <input type="text" name="name" class="form-control" placeholder="Search by name"
+                value="@ViewData["name"]" />
+        </div>
+        <div class="col-md-3 mb-2">
+            <select name="category" class="form-control">
+                <option value="" selected="@(string.IsNullOrEmpty(ViewData["category"]?.ToString()))">All Categories
+                </option>
+                @foreach (var category in ViewBag.Categories)
+                {
+                    <option value="@category.CategoryId"
+                        selected="@(category.CategoryId.ToString() == ViewData["category"]?.ToString())">
+                        @category.Name
+                    </option>
+                }
+            </select>
+        </div>
+        <div class="col-md-3 mb-2">
+            <input type="number" name="price" class="form-control" placeholder="Search by price"
+                value="@ViewData["price"]" />
+        </div>
+        <div class="col-md-3">
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </div>
+    </div>
+</form>
 <div class="row">
     @foreach (Product prod in Model)
     {

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using YanikoRestaurant.Data;
 using YanikoRestaurant.Models;
 using YanikoRestaurant.Repository;
@@ -23,11 +24,33 @@ namespace YanikoRestaurant.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string name, string category, decimal? price)
         {
-            var products = await _products.GetAllAsync();
+            var products = from p in _context.Products.Include(p => p.Category)
+                           select p;
 
-            return View(products);
+            if (!string.IsNullOrEmpty(name))
+            {
+                products = products.Where(p => p.Name!.ToLower().Contains(name.ToLower()));
+            }
+
+            if (!string.IsNullOrEmpty(category))
+            {
+                int categoryId = int.Parse(category);
+                products = products.Where(p => p.Category!.CategoryId == categoryId);
+            }
+
+            if (price.HasValue)
+            {
+                products = products.Where(p => p.Price <= price.Value);
+            }
+
+            ViewBag.Categories = await _categories.GetAllAsync();
+            ViewData["name"] = name;
+            ViewData["category"] = category;
+            ViewData["price"] = price;
+
+            return View(await products.ToListAsync());
         }
 
         [HttpGet]

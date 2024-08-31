@@ -13,6 +13,7 @@ namespace YanikoRestaurant.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly Repository<Product> _products;
+        private readonly Repository<Category> _categories;
         private readonly Repository<Order> _orders;
         private readonly UserManager<ApplicationUser> _userManager;
 
@@ -22,19 +23,41 @@ namespace YanikoRestaurant.Controllers
             _userManager = userManager;
             _products = new Repository<Product>(context);
             _orders = new Repository<Order>(context);
+            _categories = new Repository<Category>(context);
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(string? category, string? name)
         {
-            //ViewBag.Products = await _products.GetAllAsync();
-
             //Retrieve or create an OrderViewModel from session or other state management
+            // var model = HttpContext.Session.Get<OrderViewModel>("OrderViewModel") ?? new OrderViewModel
+            // {
+            //     OrderItems = new List<OrderItemViewModel>(),
+            //     Products = await _products.GetAllAsync()
+            // };
+            var products = await _products.GetAllAsync();
+            var categories = await _categories.GetAllAsync();
+
+            if (!string.IsNullOrEmpty(category))
+            {
+                int categoryId = int.Parse(category);
+                products = products.Where(p => p.Category != null && p.Category!.CategoryId == categoryId);
+            }
+
+            if (!string.IsNullOrEmpty(name))
+            {
+                products = products.Where(p => p.Name!.ToLower().Contains(name.ToLower()));
+            }
+
             var model = HttpContext.Session.Get<OrderViewModel>("OrderViewModel") ?? new OrderViewModel
             {
                 OrderItems = new List<OrderItemViewModel>(),
-                Products = await _products.GetAllAsync()
+                Products = products.Where(p => p.Category == p.Category),
             };
+
+            ViewBag.Categories = categories.Where(c => c != null).Distinct().ToList();
+            ViewData["category"] = category;
+            ViewData["name"] = name;
 
 
             return View(model);
