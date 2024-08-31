@@ -12,6 +12,7 @@ namespace YanikoRestaurant.Controllers
         private readonly Repository<Ingredient> _ingredients;
         private readonly Repository<Category> _categories;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly ApplicationDbContext _context;
 
         public ProductsController(ApplicationDbContext context, IWebHostEnvironment webHostEnvironment)
         {
@@ -19,6 +20,7 @@ namespace YanikoRestaurant.Controllers
             _ingredients = new Repository<Ingredient>(context);
             _categories = new Repository<Category>(context);
             _webHostEnvironment = webHostEnvironment;
+            _context = context;
         }
 
         public async Task<IActionResult> Index()
@@ -142,6 +144,37 @@ namespace YanikoRestaurant.Controllers
                 ModelState.AddModelError("", "Product not found.");
                 return RedirectToAction("Index");
             }
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            Product product = await _products.GetByIdAsync(id, new QueryOptions<Product>
+            {
+                Includes = "ProductIngredients, Category"
+            });
+
+            if (product == null)
+            {
+                return NotFound("Product not found");
+            }
+
+            // Delete the image file
+            if (!string.IsNullOrEmpty(product.ImageUrl))
+            {
+                var imagePath = Path.Combine(_webHostEnvironment.WebRootPath, "images", product.ImageUrl);
+                if (System.IO.File.Exists(imagePath))
+                {
+                    System.IO.File.Delete(imagePath);
+                }
+            }
+
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
         }
     }
 }
