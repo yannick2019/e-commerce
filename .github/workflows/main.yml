@@ -1,39 +1,41 @@
 name: Publish
 
-on: 
-  workflow_dispatch:
-  push:
-    branches:
-    - main
+on:
+    workflow_dispatch:
+    push:
+        branches:
+            - main
 
 env:
-  AZURE_WEBAPP_NAME: yaniko-restaurant
-  AZURE_WEBAPP_PACKAGE_PATH: "./publish"
+    AZURE_WEBAPP_NAME: yaniko-restaurant
+    AZURE_WEBAPP_PACKAGE_PATH: "./publish"
+    SOLUTION_FILE: "./YanikoRestaurant.sln"
+    PROJECT_FILE: "./YanikoRestaurant/YanikoRestaurant.csproj"
 
 jobs:
-  publish:
-    runs-on: ubuntu-latest
+    publish:
+        runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v3
+        steps:
+            - uses: actions/checkout@v4
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '8.0.x'
+            - name: Setup .NET
+              uses: actions/setup-dotnet@v4
+              with:
+                  dotnet-version: "8.0.x"
 
-      - name: Restore
-        run: dotnet restore ./YanikoRestaurant.sln
+            - name: Restore
+              run: dotnet restore ${{ env.SOLUTION_FILE }}
 
-      - name: Build
-        run: dotnet build ./YanikoRestaurant.sln --configuration Release --no-restore
+            - name: Build
+              run: dotnet build ${{ env.SOLUTION_FILE }} --configuration Release --no-restore
 
-      - name: Publish
-        run: dotnet publish ./YanikoRestaurant.sln --configuration Release --no-build --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
+            - name: Publish
+              run: dotnet publish ${{ env.PROJECT_FILE }} --configuration Release --no-build --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
 
-      - name: Deployment
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-          package: "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
+            - name: Deployment
+              uses: azure/webapps-deploy@v2
+              with:
+                  app-name: ${{ env.AZURE_WEBAPP_NAME }}
+                  publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+                  package: "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
