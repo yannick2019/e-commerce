@@ -59,6 +59,18 @@
                                     class="position-absolute start-40 translate-middle badge bg-success">@orderCount</span>
                             </a>
                         </li>
+                        @* <li class="nav-item">
+                        <a class="nav-link" asp-controller="Accounts" asp-action="AddUserToRole">Add User to
+                        Role</a>
+                        </li> *@
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Accounts" && ViewContext.RouteData.Values["action"]?.ToString() == "ChangeUserRole" ? "text-primary" : "text-dark")"
+                                    asp-controller="Accounts" asp-action="ChangeUserRole">Change User
+                                    Role</a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>

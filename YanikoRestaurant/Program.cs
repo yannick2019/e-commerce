@@ -12,7 +12,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddRazorPages();
@@ -27,6 +29,13 @@ builder.Services.AddSession(options =>
 });
 
 var app = builder.Build();
+
+// Seed roles
+// using (var scope = app.Services.CreateScope())
+// {
+//     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+//     await RoleSeeder.SeedRolesAsync(roleManager);
+// }
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
