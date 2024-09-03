@@ -19,8 +19,12 @@
 
 }
 
-<a asp-action="AddEdit" asp-controller="Products" class="btn btn-primary mb-4">Create New Item</a>
+@if (User.IsInRole("Admin"))
+{
+    <a asp-action="AddEdit" asp-controller="Products" class="btn btn-primary mb-4">Create New Item</a>
+}
 
+<!-- Filter form -->
 <form method="get" asp-controller="Products" asp-action="Index" class="mb-4">
     <div class="row">
         <div class="col-md-3 mb-2">
@@ -49,6 +53,8 @@
         </div>
     </div>
 </form>
+<!-- End Filter form -->
+
 <div class="row mb-5">
     @foreach (Product prod in Model)
     {
@@ -76,12 +82,16 @@
                         <p class="card-text">@prod?.Price.ToString("C", new System.Globalization.CultureInfo("fr-FR"))</p>
                         <p class="card-text">Quantity In Stock: @prod?.Stock</p>
 
-                        <a class="btn btn-info" asp-controller="Products" asp-action="AddEdit"
-                            asp-route-id="@prod?.ProductId"><i class="bi bi-pencil-fill">Edit</i></a>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                            data-bs-target="@GetDeleteModalId(prod!)">
-                            <i class="bi bi-trash">Delete</i>
-                        </button>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="btn btn-info" asp-controller="Products" asp-action="AddEdit"
+                                asp-route-id="@prod?.ProductId"><i class="bi bi-pencil-fill">Edit</i></a>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="@GetDeleteModalId(prod!)">
+                                <i class="bi bi-trash">Delete</i>
+                            </button>
+                        }
+
                         <div class="modal fade" id="@GetModalId(prod!)" tabindex="-1" aria-labelledby="exampleModalLabel"
                             aria-hidden="true">
                             <div class="modal-dialog">
