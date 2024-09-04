@@ -51,8 +51,9 @@
             </div>
         </div>
         <div class="col-md-6 position-relative">
-            <img src="~/images/hero-image.png" alt="Donuts" class="img-fluid rounded">
-            <div class="bg-warning text-white p-2 rounded position-absolute" style="bottom: 16px; left: 186px;">
+            <img src="~/images/hero-image.png" alt="Donuts" class="img-fluid rounded hide-on-mobile">
+            <div class="bg-warning text-white p-2 rounded position-absolute yellow-card"
+                style="bottom: 3rem; left: 13rem;">
                 <span class="fw-bold">Donuts</span>
                 <div>
                     <i class="bi bi-star-fill"></i> 4.7
@@ -65,10 +66,10 @@
     </div>
 
     <!-- New Featured Dishes Section -->
-    <section class="featured-dishes my-5">
-        <h2 class="text-center" style="margin-bottom: 38px;">Featured Dishes</h2>
+    <section class="featured-dishes" style="margin-bottom: 5rem; margin-top: 10rem;">
+        <h2 class="text-center" style="margin-bottom: 46px;">Featured Dishes</h2>
         <div class="row">
-            <div class="col-md-4 mb-4">
+            <div class="col-md-4 mb-4 featured-dish-col">
                 <div class="featured-dish">
                     <img src="~/images/burger.png" class="card-img-top" alt="Spicy Chicken Burger">
                     <div class="text-center">
@@ -77,7 +78,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-4">
+            <div class="col-md-4 mb-4 featured-dish-col">
                 <div class="featured-dish">
                     <img src="~/images/pizza.png" class="card-img-top" alt="Vegetarian Pizza">
                     <div class="text-center">
@@ -86,7 +87,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 mb-4">
+            <div class="col-md-4 mb-4 featured-dish-col">
                 <div class="featured-dish">
                     <img src="~/images/Tacos.png" class="card-img-top" alt="Delicious Tacos">
                     <div class="text-center">
@@ -106,20 +107,20 @@
 
     <!-- Delivery -->
     <section class="container my-5">
-        <h2 class="text-center mb-5">How Our Delivery Works</h2>
+        <h2 class="text-center" style="margin-bottom: 46px;">How Our Delivery Works</h2>
         <div class="position-relative">
             <div class="row text-center">
-                <div class="col-md-4 delivery-step animate-fadeInUp" style="animation-delay: 0.3s;">
+                <div class="col-md-4 delivery-step animate-fadeInUp mb-2" style="animation-delay: 0.3s;">
                     <i class="bi bi-cart-check delivery-icon text-primary"></i>
                     <h4>Place Your Order</h4>
                     <p>Choose your favorite dishes and add them to your cart</p>
                 </div>
-                <div class="col-md-4 delivery-step animate-fadeInUp" style="animation-delay: 0.6s;">
+                <div class="col-md-4 delivery-step animate-fadeInUp mb-2" style="animation-delay: 0.6s;">
                     <i class="bi bi-bicycle delivery-icon text-success"></i>
                     <h4>We Prepare & Deliver</h4>
                     <p>Our chefs prepare your meal and our delivery partner brings it to you</p>
                 </div>
-                <div class="col-md-4 delivery-step animate-fadeInUp" style="animation-delay: 0.9s;">
+                <div class="col-md-4 delivery-step animate-fadeInUp mb-2" style="animation-delay: 0.9s;">
                     <i class="bi bi-emoji-smile delivery-icon text-warning"></i>
                     <h4>Enjoy Your Food</h4>
                     <p>Receive your order and enjoy your delicious meal!</p>

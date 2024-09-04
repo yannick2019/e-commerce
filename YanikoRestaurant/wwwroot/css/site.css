@@ -2,9 +2,22 @@ html {
     font-size: 14px;
 }
 
-@media (min-width: 768px) {
+.hide-on-mobile,
+.yellow-card {
+    display: none;
+}
+
+@media (min-width: 767px) {
     html {
         font-size: 16px;
+    }
+}
+@media (min-width: 992px) {
+    .hide-on-mobile {
+        display: inline-block;
+    }
+    .yellow-card {
+        display: inline-block;
     }
 }
 
@@ -67,6 +80,40 @@ body {
     }
 }
 
+/* Feature dishes section */
+.featured-dishes {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+}
+.featured-dishes.visible {
+    opacity: 1;
+}
+.featured-dishes h2 {
+    transform: translateY(-50px);
+    opacity: 0;
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+}
+.featured-dishes.visible h2 {
+    transform: translateY(0);
+    opacity: 1;
+}
+.featured-dishes .col-md-4 {
+    transform: translateX(-50px);
+    opacity: 0;
+    transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+}
+.featured-dishes.visible .col-md-4 {
+    transform: translateX(0);
+    opacity: 1;
+}
+.featured-dishes .col-md-4:nth-child(2) {
+    transition-delay: 0.2s;
+}
+.featured-dishes .col-md-4:nth-child(3) {
+    transition-delay: 0.4s;
+}
+
+/* Delivery section */
 .delivery-step {
     transition: transform 0.3s ease-in-out;
 }
