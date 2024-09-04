@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using YanikoRestaurant.Data;
 using YanikoRestaurant.Models;
 using Microsoft.AspNetCore.Identity;
+using YanikoRestaurant.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,8 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddRazorPages();
+
+builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
 builder.Services.AddMemoryCache();
 

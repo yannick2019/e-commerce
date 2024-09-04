@@ -11,7 +11,7 @@ namespace YanikoRestaurant.Repository
 
         public Repository(ApplicationDbContext context)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context)); ;
             _dbSet = context.Set<T>();
         }
 
@@ -28,24 +28,35 @@ namespace YanikoRestaurant.Repository
 
         public async Task<T> GetByIdAsync(int id, QueryOptions<T> options)
         {
-            IQueryable<T> query = _dbSet;
+            if (_dbSet == null)
+            {
+                throw new InvalidOperationException($"DbSet for {typeof(T).Name} is not initialized. Check your DbContext setup.");
+            }
 
-            if (options.HasWhere)
+            IQueryable<T> query = _dbSet ?? throw new InvalidOperationException("DbSet is not initialized.");
+
+            if (options?.HasWhere == true && options.Where != null)
             {
                 query = query.Where(options.Where);
             }
 
-            if (options.HasOrderBy)
+            if (options?.HasOrderBy == true && options.OrderBy != null)
             {
-                query = query.OrderBy(options.OrderBy);
+                query = query.OrderBy(options.OrderBy!);
             }
 
-            foreach (string include in options.GetIncludes())
+            if (options?.GetIncludes() != null)
             {
-                query = query.Include(include);
+                foreach (string include in options.GetIncludes())
+                {
+                    if (!string.IsNullOrEmpty(include))
+                    {
+                        query = query.Include(include);
+                    }
+                }
             }
 
-            var key = _context.Model.FindEntityType(typeof(T))?.FindPrimaryKey()?.Properties.FirstOrDefault();
+            var key = _context.Model?.FindEntityType(typeof(T))?.FindPrimaryKey()?.Properties.FirstOrDefault() ?? throw new InvalidOperationException("Primary key not found for the entity.");
 
             string primaryKeyName = key!.Name;
 
@@ -74,13 +85,13 @@ namespace YanikoRestaurant.Repository
 
             if (options.HasWhere)
             {
-                query = query.Where(options.Where);
+                query = query.Where(options.Where!);
             }
 
 
             if (options.HasOrderBy)
             {
-                query = query.OrderBy(options.OrderBy);
+                query = query.OrderBy(options.OrderBy!);
             }
 
             foreach (string include in options.GetIncludes())

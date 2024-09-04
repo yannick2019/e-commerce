@@ -19,4 +19,5 @@ See it live -> [yaniko-restaurant](https://yaniko-restaurant-fyfxfbbddqe4dqh0.ea
 -   Bootstrap
 -   Sqlite
 -   CI/CD pipeline with github actions
+-   xUnit Test
 -   Deployment on Azure

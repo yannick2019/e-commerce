@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using YanikoRestaurant.Data;
 using YanikoRestaurant.Models;
 using YanikoRestaurant.Repository;
 
@@ -8,11 +7,11 @@ namespace YanikoRestaurant.Controllers;
 
 public class IngredientsController : Controller
 {
-    private readonly Repository<Ingredient> _ingredients;
+    private readonly IRepository<Ingredient> _ingredients;
 
-    public IngredientsController(ApplicationDbContext context)
+    public IngredientsController(IRepository<Ingredient> ingredients)
     {
-        _ingredients = new Repository<Ingredient>(context);
+        _ingredients = ingredients;
     }
 
     public async Task<IActionResult> Index()

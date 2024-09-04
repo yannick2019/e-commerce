@@ -4,18 +4,31 @@ namespace YanikoRestaurant.Models
 {
     public class QueryOptions<T> where T : class
     {
-        public Expression<Func<T, object>> OrderBy { get; set; } = null!;
+        public Expression<Func<T, object>>? OrderBy { get; set; }
 
-        public Expression<Func<T, bool>> Where { get; set; } = null!;
+        public Expression<Func<T, bool>>? Where { get; set; }
 
-        private string[] includes = Array.Empty<string>();
+        private List<string> includes = new List<string>();
 
         public string Includes
         {
-            set => includes = value.Replace(" ", "").Split(',');
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    includes = value.Split(',')
+                        .Select(i => i.Trim())
+                        .Where(i => !string.IsNullOrWhiteSpace(i))
+                        .ToList();
+                }
+                else
+                {
+                    includes.Clear();
+                }
+            }
         }
 
-        public string[] GetIncludes() => includes;
+        public IEnumerable<string> GetIncludes() => includes;
 
         public bool HasWhere => Where != null;
 
