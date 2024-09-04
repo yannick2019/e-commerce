@@ -12,18 +12,23 @@ namespace YanikoRestaurant.Controllers;
 public class OrdersController : Controller
 {
     private readonly ApplicationDbContext _context;
-    private readonly Repository<Product> _products;
-    private readonly Repository<Category> _categories;
-    private readonly Repository<Order> _orders;
+    private readonly IRepository<Product> _products;
+    private readonly IRepository<Category> _categories;
+    private readonly IRepository<Order> _orders;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    public OrdersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+    public OrdersController(
+        ApplicationDbContext context,
+        UserManager<ApplicationUser> userManager,
+        IRepository<Product> products,
+        IRepository<Category> categories,
+        IRepository<Order> orders)
     {
         _context = context;
         _userManager = userManager;
-        _products = new Repository<Product>(context);
-        _orders = new Repository<Order>(context);
-        _categories = new Repository<Category>(context);
+        _products = products;
+        _categories = categories;
+        _orders = orders;
     }
 
     [HttpGet]
@@ -170,6 +175,7 @@ public class OrdersController : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> DeleteOrder(int orderId)
     {
         var userId = _userManager.GetUserId(User);
@@ -188,8 +194,7 @@ public class OrdersController : Controller
 
         if (order != null)
         {
-            _context.Remove(order);
-            await _context.SaveChangesAsync();
+            await _orders.DeleteAsync(orderId);
         }
 
         return RedirectToAction("ViewOrders");

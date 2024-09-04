@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YanikoRestaurant", "YanikoRestaurant\YanikoRestaurant.csproj", "{D4E419C6-C691-415B-AE97-1A260A989063}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YanikoRestaurant.Tests", "YanikoRestaurant.Tests\YanikoRestaurant.Tests.csproj", "{BFD9C851-BA3C-4EFC-B1DC-253E14E5396B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{D4E419C6-C691-415B-AE97-1A260A989063}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4E419C6-C691-415B-AE97-1A260A989063}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4E419C6-C691-415B-AE97-1A260A989063}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BFD9C851-BA3C-4EFC-B1DC-253E14E5396B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFD9C851-BA3C-4EFC-B1DC-253E14E5396B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFD9C851-BA3C-4EFC-B1DC-253E14E5396B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFD9C851-BA3C-4EFC-B1DC-253E14E5396B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
