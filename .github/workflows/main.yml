@@ -11,6 +11,7 @@ env:
     AZURE_WEBAPP_PACKAGE_PATH: "./publish"
     SOLUTION_FILE: "./YanikoRestaurant.sln"
     PROJECT_FILE: "./YanikoRestaurant/YanikoRestaurant.csproj"
+    TEST_PROJECT_FILE: "./YanikoRestaurant.Tests/YanikoRestaurant.Tests.csproj"
 
 jobs:
     publish:
@@ -29,6 +30,9 @@ jobs:
 
             - name: Build
               run: dotnet build ${{ env.SOLUTION_FILE }} --configuration Release --no-restore
+
+            - name: Run tests
+              run: dotnet test ${{ env.TEST_PROJECT_FILE }} --configuration Release --no-build --verbosity normal
 
             - name: Publish
               run: dotnet publish ${{ env.PROJECT_FILE }} --configuration Release --no-build --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
