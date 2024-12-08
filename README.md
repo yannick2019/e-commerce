@@ -14,7 +14,6 @@ See it live -> [yaniko-restaurant](https://yaniko-restaurant-fyfxfbbddqe4dqh0.ea
 -   ASP.NET Core MVC
 -   Entity Framework Core
 -   Identity Framwork
--   Razor pages
 -   HTML/CSS
 -   Bootstrap
 -   Sqlite
