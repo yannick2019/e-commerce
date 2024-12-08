@@ -1,6 +1,6 @@
 # Yaniko Restaurant
 
-See it live -> [yaniko-restaurant](https://yaniko-restaurant-fyfxfbbddqe4dqh0.eastus-01.azurewebsites.net/)
+See it live -> [yaniko-restaurant](yaniko-restaurant-fyfxfbbddqe4dqh0.canadacentral-01.azurewebsites.net)
 
 ## Features
 
